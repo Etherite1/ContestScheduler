@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-import leetcode_scraper
+from src import leetcode_scraper
+
 
 def scrape_open_html():
     with open('home.html', 'r') as html_file:
