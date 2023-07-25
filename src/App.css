@@ -12,3 +12,7 @@
     position: fixed;
     top: 2px;
 }
+
+th {
+    cursor: pointer;
+}
