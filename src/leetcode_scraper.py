@@ -15,4 +15,3 @@ def scrape():
         time = contest.find('div', class_='flex items-center text-[14px] leading-[22px] text-label-2 dark:text-dark-label-2').text
         countdown = " ".join(contest.find('div', class_='flex items-center').text.split(" ")[2:])
         print(f'''Name: {name}\nTime: {time}\nStarts in: {countdown}\n''')
-
