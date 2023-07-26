@@ -4,7 +4,9 @@ import requests
 
 def scrape():
     url = "https://leetcode.com/contest/"
-    driver = webdriver.Chrome()
+    op = webdriver.ChromeOptions()
+    op.add_argument('headless')
+    driver = webdriver.Chrome(options=op)
     driver.get(url)
 
     lc_content = BeautifulSoup(driver.page_source, 'lxml')
