@@ -2,6 +2,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime, timedelta, timezone
+import json
 
 def scrape():
     url = "https://codeforces.com/contests"
@@ -18,12 +19,21 @@ def scrape():
     table = datatable.find("table")
 
     contests = table.select("tr[data-contestid]")
-    for contest in contests:
+
+    contestDict = {}
+    for idx, contest in enumerate(contests):
+        currentDict = {}
         cols = contest.find_all("td")
         name = cols[0].getText().strip();
         time = (cols[2].getText().strip()[0:cols[2].getText().strip().index("UTC")])
         dt = datetime.strptime(time, "%b/%d/%Y %H:%M").astimezone(tz = timezone.utc)
-        dt = dt.strftime("%b/%d/%Y %H:%M")
-        
-        print(f"Name: {name}")
-        print(f"Time in UTC: {dt}\n")
+        countdown = int((dt - datetime.now(tz = timezone.utc)).total_seconds())
+
+        currentDict['site'] = "CF"
+        currentDict['name'] = name
+        currentDict['time'] = dt.strftime("%b/%d/%Y %H:%M")
+        currentDict['countdown'] = str(countdown)
+
+        contestDict[idx] = currentDict
+
+    return contestDict
