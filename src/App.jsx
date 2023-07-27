@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import SiteCheckbox from './SiteCheckbox.jsx'
 import GetContests from './GetContests.jsx'
@@ -13,7 +13,7 @@ function Contest({site, name, time, countdown}) // TODO: link
     }
     return (
         <tr>
-            <img src = {getLogo(site)} height = "50px" width = "auto" />
+            <td><img src = {getLogo(site)} height = "50px" width = "auto" /></td>
             <td>{name}</td>
             <td>{time}</td>
             <td>{countdown}</td>
@@ -23,12 +23,36 @@ function Contest({site, name, time, countdown}) // TODO: link
 
 function ContestTable({displayedSites}) 
 {
-    const [contests, setContests] = useState(GetContests());
+    const [contests, setContests] = useState([]);
+
+    const GetAPIData = () => {
+        fetch('http://127.0.0.1:5000')
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                var next_contests = [];
+                for(let curr_data of data)
+                {
+                    var curr_contest = [];
+                    curr_contest[0] = curr_data['site'];
+                    curr_contest[1] = curr_data['name'];
+                    curr_contest[2] = curr_data['time'];
+                    curr_contest[3] = curr_data['countdown'];
+                    next_contests.push(curr_contest);
+                }
+                setContests(next_contests);
+            })
+    };
+
+    useEffect(() => {
+        GetAPIData();
+    }, [])
 
     var contestComponents = contests.map((contest) => {
         if(!displayedSites.get(contest[0])) return;
         return (
-            <Contest key = {contest[0]} site = {contest[0]} name = {contest[1]} time = {contest[2]} countdown = {contest[3]}/>
+            <Contest key = {contest[1]} site = {contest[0]} name = {contest[1]} time = {contest[2]} countdown = {contest[3]}/>
         );
     });
     
