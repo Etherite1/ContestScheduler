@@ -7,7 +7,8 @@ import json
 def scrape():
     url = "https://codeforces.com/contests"
     op = webdriver.ChromeOptions()
-    op.add_argument('headless')
+    op.add_argument('--headless')
+    op.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=op)
     driver.get(url)
 
