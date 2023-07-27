@@ -6,10 +6,10 @@ import json
 
 def scrape():
     url = "https://codeforces.com/contests"
-    op = webdriver.ChromeOptions()
+    op = webdriver.EdgeOptions()
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(options=op)
+    driver = webdriver.Edge(options=op)
     driver.get(url)
 
     cf_content = BeautifulSoup(driver.page_source, 'lxml')
