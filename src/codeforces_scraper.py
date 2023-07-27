@@ -4,9 +4,11 @@ from bs4 import BeautifulSoup
 import requests
 from datetime import datetime, timedelta, timezone
 import json
+import time as time_library
 
 def scrape():
-    url = "https://codeforces.com/contests"
+    time_library.sleep(5)
+    url = "https://codeforces.com/contests?complete=true"
     op = Options()
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
@@ -26,14 +28,20 @@ def scrape():
     for idx, contest in enumerate(contests):
         currentDict = {}
         cols = contest.find_all("td")
-        name = cols[0].getText().strip();
-        time = (cols[2].getText().strip()[0:cols[2].getText().strip().index("UTC")])
+        unwanted = cols[0].find("a")
+        if(unwanted != None):
+            unwanted.extract()
+        name = cols[0].getText().strip()
+        time = str(cols[2].getText().strip())
+        utc_idx = time.find("UTC")
+        if utc_idx != -1:
+            time = time[:utc_idx]
         dt = datetime.strptime(time, "%b/%d/%Y %H:%M").astimezone(tz = timezone.utc)
         countdown = int((dt - datetime.now(tz = timezone.utc)).total_seconds())
 
         currentDict['site'] = "CF"
-        currentDict['name'] = name
-        currentDict['time'] = dt.strftime("%b/%d/%Y %H:%M")
+        currentDict['name'] = name        
+        currentDict['time'] = dt.strftime("%b-%d-%Y %H:%M")
         currentDict['countdown'] = str(countdown)
 
         contestDict[idx] = currentDict

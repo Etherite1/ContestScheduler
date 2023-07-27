@@ -1,6 +1,7 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime, timedelta, timezone
 
 def scrape():
     url = "https://leetcode.com/contest/"
@@ -12,8 +13,35 @@ def scrape():
     lc_content = BeautifulSoup(driver.page_source, 'lxml')
     contest_flex_div = lc_content.find('div', class_='swiper-wrapper')
     contests = contest_flex_div.find_all('a', class_='h-full w-full')
-    for contest in contests:
+    contestDict = {}
+    for idx, contest in enumerate(contests):
+        current_dict = {}
         name = contest.find('div', class_='truncate').text
         time = contest.find('div', class_='flex items-center text-[14px] leading-[22px] text-label-2 dark:text-dark-label-2').text
         countdown = " ".join(contest.find('div', class_='flex items-center').text.split(" ")[2:])
-        print(f'''Name: {name}\nTime: {time}\nStarts in: {countdown}\n''')
+
+        countdown_time = datetime.strptime(countdown, "%jd %Hh %Mm %Ss")
+        countdown_timedelta = timedelta(days = countdown_time.day, hours = countdown_time.hour, minutes = countdown_time.minute, seconds = countdown_time.second);
+        contest_time = datetime.now(tz = timezone.utc) + countdown_timedelta
+        contest_time = roundTime(contest_time)
+       
+        current_dict['site'] = "LC"
+        current_dict['name'] = name
+        current_dict['time'] = contest_time.strftime("%b-%d-%Y %H:%M")
+        current_dict['countdown'] = str(int((contest_time - datetime.now(tz = timezone.utc)).total_seconds()))
+
+        contestDict[idx] = current_dict
+
+    return contestDict
+
+
+def roundTime(dt=None, roundTo=60):
+   """Round a datetime object to any time lapse in seconds
+   dt : datetime.datetime object, default now.
+   roundTo : Closest number of seconds to round to, default 1 minute.
+   Author: Thierry Husson 2012 - Use it as you want but don't blame me.
+   """
+   if dt == None : dt = datetime.now()
+   seconds = (dt.replace(tzinfo=None) - dt.min).seconds
+   rounding = (seconds+roundTo/2) // roundTo * roundTo
+   return dt + timedelta(0,rounding-seconds,-dt.microsecond)

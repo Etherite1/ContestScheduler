@@ -1,14 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
-import json
+import scrape_main
+import pandas as pd
 
-from src import leetcode_scraper
-from src import codeforces_scraper
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/")
-def scrape():
-    # leetcode_scraper.scrape()
-    return json.dumps(codeforces_scraper.scrape())
+def run():
+    df = pd.read_csv("data/contest_data.csv")
+    df = df.drop(df.columns[0], axis = 1)
+    return df.to_json(orient = "records")
