@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime, timedelta, timezone
@@ -6,10 +7,10 @@ import json
 
 def scrape():
     url = "https://codeforces.com/contests"
-    op = webdriver.EdgeOptions()
+    op = Options()
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
-    driver = webdriver.Edge(options=op)
+    driver = webdriver.Chrome(options=op)
     driver.get(url)
 
     cf_content = BeautifulSoup(driver.page_source, 'lxml')
