@@ -22,3 +22,7 @@ def scrape():
 
     contest_df = pd.DataFrame(contests)
     contest_df.to_csv("data/contest_data.csv")
+
+while(True):
+    scrape()
+    time.sleep(300)
