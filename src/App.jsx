@@ -32,10 +32,10 @@ function Contest({site, name, time}) // TODO: link
         const hours = timestampDjs.diff(nowDjs, 'hours') % 24;
         const days = timestampDjs.diff(nowDjs, 'days');
         
-        console.log(seconds);
-        console.log(minutes);
-        console.log(hours);
-        console.log(days);
+        // console.log(seconds);
+        // console.log(minutes);
+        // console.log(hours);
+        // console.log(days);
 
         return {
             seconds: seconds,
@@ -50,10 +50,10 @@ function Contest({site, name, time}) // TODO: link
             <td>{name}</td>
             <td>{time}</td>
             <td>
-                <span>{countdown.seconds}s</span>
-                <span>{countdown.minutes}m</span>
-                <span>{countdown.hours}h</span>
                 <span>{countdown.days}d</span>
+                <span>{countdown.hours}h</span>
+                <span>{countdown.minutes}m</span>
+                <span>{countdown.seconds}s</span>
             </td>
         </tr>
     );
@@ -93,7 +93,7 @@ function ContestTable({displayedSites})
     var contestComponents = contests.map((contest) => { // contest is array containing event info, within array contests
         if(!displayedSites.get(contest[0])) return; // checking whether contest is toggled to false (checkbox unchecked)
         return (
-            <Contest key = {contest[0]} 
+            <Contest key = {contest[1]} 
             site = {contest[0]} 
             name = {contest[1]} 
             time = {contest[2]} />
