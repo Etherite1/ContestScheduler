@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import SiteCheckbox from './SiteCheckbox.jsx'
 import GetContests from './GetContests.jsx'
+import dayjs from 'dayjs'
 
-function Contest({site, name, time, countdown}) // TODO: link
+function Contest({site, name, time}) // TODO: link
 {
+    const [countdown, setCountdown] = useState(getRemainingTime(time));
+
     function getLogo(site)
     {
         if(site == "CC") return "logos/cc.png";
@@ -12,19 +15,54 @@ function Contest({site, name, time, countdown}) // TODO: link
         else if(site == "CF") return "logos/cf.png";
         else if(site == "AC") return "logos/ac.png"
     }
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCountdown(getRemainingTime(time));
+        }, 1000);
+        return () => clearInterval(intervalId);
+    },[time])
+
+    function getRemainingTime(iso8601) 
+    {
+        const timestampDjs = dayjs(iso8601); // dayjs obj created from isostring
+        const nowDjs = dayjs();
+        const seconds = timestampDjs.diff(nowDjs, 'seconds') % 60;
+        const minutes = timestampDjs.diff(nowDjs, 'minutes') % 60;
+        const hours = timestampDjs.diff(nowDjs, 'hours') % 24;
+        const days = timestampDjs.diff(nowDjs, 'days');
+        
+        console.log(seconds);
+        console.log(minutes);
+        console.log(hours);
+        console.log(days);
+
+        return {
+            seconds: seconds,
+            minutes: minutes,
+            hours: hours,
+            days: days
+        };
+    }
+
     return (
         <tr>
             <td><img src = {getLogo(site)} height = "50px" width = "auto" /></td>
             <td>{name}</td>
             <td>{time}</td>
-            <td>{countdown}</td>
+            <td>
+                <span>{countdown.seconds}s</span>
+                <span>{countdown.minutes}m</span>
+                <span>{countdown.hours}h</span>
+                <span>{countdown.days}d</span>
+            </td>
         </tr>
     );
 }
 
 function ContestTable({displayedSites}) 
 {
-    const [contests, setContests] = useState([]);
+    const [contests, setContests] = useState([]); // get from backend
 
     const GetAPIData = () => {
         fetch('http://127.0.0.1:5000')
@@ -50,14 +88,20 @@ function ContestTable({displayedSites})
         GetAPIData();
     }, [])
 
-    var contestComponents = contests.map((contest) => {
-        if(!displayedSites.get(contest[0])) return;
+    
+    // useEffects -> update state and rerender child components
+
+    var contestComponents = contests.map((contest) => { // contest is array containing event info, within array contests
+        if(!displayedSites.get(contest[0])) return; // checking whether contest is toggled to false (checkbox unchecked)
         return (
-            <Contest key = {contest[1]} site = {contest[0]} name = {contest[1]} time = {contest[2]} countdown = {contest[3]}/>
-        );
+            <Contest key = {contest[0]} 
+            site = {contest[0]} 
+            name = {contest[1]} 
+            time = {contest[2]} />
+        ); 
     });
     
-    function applySorting(col) {
+    function applySorting(col) { // sorts specified col
         var nextContests = contests.slice();
         nextContests.sort(function(x, y) {
             if(x[col] < y[col]) return -1;
@@ -74,7 +118,7 @@ function ContestTable({displayedSites})
                     <th onClick = {() => applySorting(0)}>Site</th>
                     <th onClick = {() => applySorting(1)} style = {{width: "500px"}}>Name</th>
                     <th onClick = {() => applySorting(2)} >Time (UTC)</th>
-                    <th onClick = {() => applySorting(3)} >Countdown</th>
+                    <th onClick = {() => applySorting(2)} >Countdown</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +145,7 @@ export default function ContestScheduler()
         setDisplayedSites(nextMap);
     }
 
-    const FilterBoxes = [...Array.from(displayedSites.keys())].map((site) => {
+    const FilterBoxes = [...Array.from(displayedSites.keys())].map((site) => { // checkboxes, call onCheck()
         return (
             <SiteCheckbox key = {site} siteName = {site} onCheck = {onCheck} />
         );
@@ -113,7 +157,7 @@ export default function ContestScheduler()
                 {FilterBoxes}
             </div>
             <div className = "table-responsive">
-                <ContestTable displayedSites = {displayedSites}/>
+                <ContestTable displayedSites = {displayedSites}/> {/*displayedSites is a map*/}
             </div>
         </div>
     );
