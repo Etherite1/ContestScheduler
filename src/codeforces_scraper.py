@@ -41,7 +41,7 @@ def scrape():
 
         currentDict['site'] = "CF"
         currentDict['name'] = name        
-        currentDict['time'] = dt.strftime("%b-%d-%Y %H:%M")
+        currentDict['time'] = dt.strftime("%Y-%m-%d %H:%M")
         currentDict['countdown'] = str(countdown)
 
         contestDict[idx] = currentDict
