@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useEffect } from 'react'
 import './App.css'
 import SiteCheckbox from './SiteCheckbox.jsx'
 import GetContests from './GetContests.jsx'
@@ -44,7 +44,6 @@ function Contest({site, name, time}) // TODO: link
             days: days
         };
     }
-
     return (
         <tr>
             <td><img src = {getLogo(site)} height = "50px" width = "auto" /></td>
