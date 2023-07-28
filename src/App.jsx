@@ -1,4 +1,4 @@
-import { useState, useEffect, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import SiteCheckbox from './SiteCheckbox.jsx'
 import GetContests from './GetContests.jsx'
