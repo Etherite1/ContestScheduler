@@ -1,12 +1,13 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-import requests
 from datetime import datetime, timedelta, timezone
 
 def scrape():
     url = "https://leetcode.com/contest/"
-    op = webdriver.ChromeOptions()
-    op.add_argument('headless')
+    op = Options()
+    op.add_argument('--headless')
+    op.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=op)
     driver.get(url)
 

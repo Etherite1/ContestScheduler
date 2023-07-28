@@ -3,8 +3,7 @@ import time
 import pandas as pd
 import os
 
-from src import leetcode_scraper
-from src import codeforces_scraper
+from src import leetcode_scraper, codeforces_scraper, codechef_scraper
 
 def scrape():
     contests = [] # stores a bunch of dictionaries - contests[i] represents one (1) contest
@@ -16,6 +15,10 @@ def scrape():
     leetcode_dict = leetcode_scraper.scrape()
     for leetcode_contest in leetcode_dict.values():
         contests.append(leetcode_contest)
+
+    codechef_dict = codechef_scraper.scrape()
+    for codechef_contest in codechef_dict.values():
+        contests.append(codechef_contest)
 
     if(not os.path.isdir("data")):
        os.makedirs("data")

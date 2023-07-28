@@ -1,9 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-import requests
 from datetime import datetime, timedelta, timezone
-import json
 import time as time_library
 
 def scrape():
