@@ -72,7 +72,7 @@ function ContestTable({displayedSites})
                 <tr>
                     <th onClick = {() => applySorting(0)}>Site</th>
                     <th onClick = {() => applySorting(1)} style = {{width: "500px"}}>Name</th>
-                    <th onClick = {() => applySorting(2)} >Time</th>
+                    <th onClick = {() => applySorting(2)} >Time (UTC)</th>
                     <th onClick = {() => applySorting(3)} >Countdown</th>
                 </tr>
             </thead>
