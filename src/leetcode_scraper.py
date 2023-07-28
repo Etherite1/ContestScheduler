@@ -8,6 +8,7 @@ def scrape():
     op = Options()
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
+    op.add_argument("window-size=1920,1080")
     driver = webdriver.Chrome(options=op)
     driver.get(url)
 
