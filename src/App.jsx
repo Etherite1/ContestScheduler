@@ -10,6 +10,7 @@ function Contest({site, name, time, countdown}) // TODO: link
         if(site == "CC") return "logos/cc.png";
         else if(site == "LC") return "logos/lc.png";
         else if(site == "CF") return "logos/cf.png";
+        else if(site == "AC") return "logos/ac.png"
     }
     return (
         <tr>
@@ -90,6 +91,7 @@ export default function ContestScheduler()
     siteNames.set("CF", false);
     siteNames.set("LC", false);
     siteNames.set("CC", false);
+    siteNames.set("AC", false);
     const [displayedSites, setDisplayedSites] = useState(siteNames);
     
     function onCheck(siteName)

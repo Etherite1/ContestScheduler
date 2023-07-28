@@ -9,10 +9,13 @@
 }
 
 .wrapper {
-    position: fixed;
     top: 2px;
 }
 
 th {
     cursor: pointer;
+}
+
+html {
+    overflow-y: auto;
 }
