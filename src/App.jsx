@@ -6,8 +6,6 @@ import dayjs from 'dayjs'
 
 function Contest({site, name, time}) // TODO: link
 {
-    const [countdown, setCountdown] = useState(getRemainingTime(time));
-
     function getLogo(site)
     {
         if(site == "CC") return "logos/cc.png";
@@ -15,6 +13,8 @@ function Contest({site, name, time}) // TODO: link
         else if(site == "CF") return "logos/cf.png";
         else if(site == "AC") return "logos/ac.png"
     }
+
+    const [countdown, setCountdown] = useState(getRemainingTime(time));
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -31,11 +31,6 @@ function Contest({site, name, time}) // TODO: link
         const minutes = timestampDjs.diff(nowDjs, 'minutes') % 60;
         const hours = timestampDjs.diff(nowDjs, 'hours') % 24;
         const days = timestampDjs.diff(nowDjs, 'days');
-        
-        // console.log(seconds);
-        // console.log(minutes);
-        // console.log(hours);
-        // console.log(days);
 
         return {
             seconds: seconds,
@@ -64,6 +59,7 @@ function ContestTable({displayedSites})
     const [contests, setContests] = useState([]); // get from backend
 
     const GetAPIData = () => {
+        console.log("Queried :)")
         fetch('http://127.0.0.1:5000')
             .then(res => {
                 return res.json();
@@ -76,17 +72,20 @@ function ContestTable({displayedSites})
                     curr_contest[0] = curr_data['site'];
                     curr_contest[1] = curr_data['name'];
                     curr_contest[2] = curr_data['time'];
-                    curr_contest[3] = curr_data['countdown'];
                     next_contests.push(curr_contest);
                 }
                 setContests(next_contests);
             })
     };
 
-    useEffect(() => {
-        GetAPIData();
-    }, [])
+    useEffect(() => {GetAPIData()}, []);
 
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            GetAPIData();
+        }, 300000);
+        return () => clearInterval(intervalId);
+    }, []);
     
     // useEffects -> update state and rerender child components
 
