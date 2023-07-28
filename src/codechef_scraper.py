@@ -32,8 +32,6 @@ def scrape():
         timestr = timestr[:11] + timestr[15:]
         dt = datetime.strptime(timestr, "%d %b %Y%H:%M").astimezone(tz = timezone.utc)
         current_dict['time'] = dt.strftime("%Y-%m-%d %H:%M")
-        countdown = int((dt - datetime.now(tz = timezone.utc)).total_seconds())
-        current_dict['countdown'] = str(countdown)
 
         contestDict[idx] = current_dict
 

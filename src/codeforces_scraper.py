@@ -36,12 +36,10 @@ def scrape():
         if utc_idx != -1:
             time = time[:utc_idx]
         dt = datetime.strptime(time, "%b/%d/%Y %H:%M").astimezone(tz = timezone.utc)
-        countdown = int((dt - datetime.now(tz = timezone.utc)).total_seconds())
 
         currentDict['site'] = "CF"
         currentDict['name'] = name        
         currentDict['time'] = dt.strftime("%Y-%m-%d %H:%M")
-        currentDict['countdown'] = str(countdown)
 
         contestDict[idx] = currentDict
 

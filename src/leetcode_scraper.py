@@ -30,7 +30,6 @@ def scrape():
         current_dict['site'] = "LC"
         current_dict['name'] = name
         current_dict['time'] = contest_time.strftime("%Y-%m-%d %H:%M")
-        current_dict['countdown'] = str(int((contest_time - datetime.now(tz = timezone.utc)).total_seconds()))
 
         contestDict[idx] = current_dict
 

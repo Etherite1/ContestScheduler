@@ -27,9 +27,6 @@ def scrape():
         current_dict['site'] = "AC"
         current_dict['name'] = tds[1].find("a").getText()
         current_dict['time'] = dt.strftime("%Y-%m-%d %H:%M")
-
-        countdown = int((dt - datetime.now(tz = timezone.utc)).total_seconds())
-        current_dict['countdown'] = str(countdown)
         
         contestDict[idx] = current_dict
         

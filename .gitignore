@@ -2,3 +2,5 @@ contestenv/
 data/
 .github/
 node_modules/
+.vite/
+.github/
