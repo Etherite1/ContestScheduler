@@ -31,3 +31,10 @@ def scrape():
         contestDict[idx] = current_dict
         
     return contestDict
+
+def run():
+    try:
+        return scrape()
+    except:
+        print(__file__, "is broken")
+        return {}

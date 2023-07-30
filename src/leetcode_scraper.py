@@ -46,3 +46,10 @@ def roundTime(dt=None, roundTo=60):
    seconds = (dt.replace(tzinfo=None) - dt.min).seconds
    rounding = (seconds+roundTo/2) // roundTo * roundTo
    return dt + timedelta(0,rounding-seconds,-dt.microsecond)
+
+def run():
+    try:
+        return scrape()
+    except:
+        print(__file__, "is broken")
+        return {}
