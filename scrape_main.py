@@ -6,6 +6,7 @@ import os
 from src import leetcode_scraper, codeforces_scraper, codechef_scraper, atcoder_scraper
 
 def scrape():
+    print("scraping :)")
     contests = [] # stores a bunch of dictionaries - contests[i] represents one (1) contest
 
     codeforces_dict = codeforces_scraper.run()
@@ -30,6 +31,9 @@ def scrape():
     contest_df = pd.DataFrame(contests)
     contest_df.to_csv("data/contest_data.csv")
 
-while(True):
-    scrape()
-    time.sleep(300)
+    print("scraped :)")
+
+def run():
+    while(True):
+        scrape()
+        time.sleep(300)

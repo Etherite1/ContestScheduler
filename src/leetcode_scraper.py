@@ -50,6 +50,7 @@ def roundTime(dt=None, roundTo=60):
 def run():
     try:
         return scrape()
-    except:
+    except Exception as e:
         print(__file__, "is broken")
+        print(e)
         return {}
