@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import SiteCheckbox from './SiteCheckbox.jsx'
-import GetContests from './GetContests.jsx'
 import dayjs from 'dayjs'
 
 function Contest({site, name, time}) // TODO: link
