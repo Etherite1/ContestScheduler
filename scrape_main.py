@@ -31,7 +31,7 @@ def scrape():
     contest_df = pd.DataFrame(contests)
     contest_df.to_csv("data/contest_data.csv")
 
-    print("scraped :)")
+    print("scraped :)", flush = True)
 
 def run():
     while(True):
