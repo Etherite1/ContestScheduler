@@ -59,7 +59,7 @@ function ContestTable({displayedSites})
 
     const GetAPIData = () => {
         console.log("Queried :)")
-        fetch('http://167.71.159.133:8000/', {referrerPolicy: "unsafe_url"} )
+        fetch('http://167.71.159.133:8000/')
             .then(res => {
                 return res.json();
             })
