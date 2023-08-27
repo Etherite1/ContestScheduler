@@ -1,6 +1,9 @@
 contestenv/
+venv/
 data/
 .github/
 node_modules/
 .vite/
 .github/
+.python-version
+__pycache__/
