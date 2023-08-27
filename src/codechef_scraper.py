@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromeService
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone
 import time
@@ -10,7 +11,9 @@ def scrape():
     op.add_argument('--headless')
     op.add_argument('--no-sandbox')
     op.add_argument("window-size=1920,1080")
-    driver = webdriver.Chrome(options=op)
+
+    service = ChromeService(executable_path="/Users/caleb/Documents/Projects/ContestScheduler/venv/lib/python3.11/site-packages/chromedriver_binary/chromedriver")
+    driver = webdriver.Chrome(service=service, options=op)
     driver.get(url)
 
     time.sleep(5)

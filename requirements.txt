@@ -4,11 +4,15 @@ blinker==1.6.2
 bs4==0.0.1
 certifi==2023.7.22
 charset-normalizer==3.2.0
-chromedriver-binary==117.0.5917.0.0
+# chromedriver-binary==117.0.5917.0.0
+chromedriver-binary-auto
 click==8.1.6
 exceptiongroup==1.1.2
 Flask==2.3.2
 Flask-Cors==4.0.0
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
 gunicorn==21.2.0
 h11==0.14.0
 idna==3.4
@@ -34,6 +38,7 @@ trio==0.22.2
 trio-websocket==0.10.3
 tzdata==2023.3
 urllib3==2.0.4
+webdriver_manager==4.0.0
 Werkzeug==2.3.6
 wsproto==1.2.0
 zipp==3.16.2
