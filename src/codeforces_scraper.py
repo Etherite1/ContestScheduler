@@ -22,7 +22,7 @@ def scrape():
     cf_content = BeautifulSoup(driver.page_source, 'lxml')
     contest_flex_div = cf_content.find('div', class_='contestList')
 
-    datatable = contest_flex_div.find("div", class_ = "datatable")
+    datatable = contest_flex_div.find("div", class_="datatable")
 
     table = datatable.find("table")
 
