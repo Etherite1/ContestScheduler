@@ -25,3 +25,5 @@ dist-ssr
 contestenv/
 data/
 node_modules/
+__pycache__/
+src/__pycache__/
