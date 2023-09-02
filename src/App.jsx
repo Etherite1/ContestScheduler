@@ -56,10 +56,11 @@ function Contest({site, name, time}) // TODO: link
 function ContestTable({displayedSites}) 
 {
     const [contests, setContests] = useState([]); // get from backend
-
+    const serverURL = "http://167.71.159.133:8000/"
+    const testServerURL = "http://127.0.0.1:5000/"
     const GetAPIData = () => {
         console.log("Queried :)")
-        fetch('http://167.71.159.133:8000/')
+        fetch(testServerURL)
             .then(res => {
                 return res.json();
             })
