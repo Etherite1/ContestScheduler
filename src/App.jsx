@@ -73,6 +73,8 @@ function ContestTable({displayedSites})
                     curr_contest[1] = curr_data['name'];
                     curr_contest[2] = curr_data['time'];
                     next_contests.push(curr_contest);
+                    console.log("%d site: " + curr_contest[0]);
+                    console.log("%d name: " + curr_contest[1]);
                 }
                 setContests(next_contests);
             })
@@ -92,7 +94,7 @@ function ContestTable({displayedSites})
     var contestComponents = contests.map((contest) => { // contest is array containing event info, within array contests
         if(!displayedSites.get(contest[0])) return; // checking whether contest is toggled to false (checkbox unchecked)
         return (
-            <Contest key = {contest[1]} 
+            <Contest key = {contest[1]+contest[2]} // name+time (codeforces can have multiple div 1/2/3 etc) 
             site = {contest[0]} 
             name = {contest[1]} 
             time = {contest[2]} />
