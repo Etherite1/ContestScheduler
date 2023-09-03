@@ -11,7 +11,7 @@ def scrape():
     op.add_argument('--no-sandbox')
     op.add_argument("window-size=1920,1080")
 
-    service = ChromeService(executable_path="/Users/caleb/Documents/Projects/ContestScheduler/venv/lib/python3.11/site-packages/chromedriver_binary/chromedriver")
+    service = ChromeService(executable_path="./contestenv/lib/python3.11/site-packages/chromedriver_binary/chromedriver")
     driver = webdriver.Chrome(service=service, options=op)
     driver.get(url)
 

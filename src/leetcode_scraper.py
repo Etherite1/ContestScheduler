@@ -11,7 +11,7 @@ def scrape():
     op.add_argument('--no-sandbox')
     op.add_argument("window-size=1920,1080")
 
-    service = ChromeService(executable_path="/Users/caleb/Documents/Projects/ContestScheduler/venv/lib/python3.11/site-packages/chromedriver_binary/chromedriver")
+    service = ChromeService(executable_path="./contestenv/lib/python3.11/site-packages/chromedriver_binary/chromedriver")
     driver = webdriver.Chrome(service=service, options=op)
     driver.get(url)
 
@@ -24,8 +24,9 @@ def scrape():
         name = contest.find('div', class_='truncate').text
         time = contest.find('div', class_='flex items-center text-[14px] leading-[22px] text-label-2 dark:text-dark-label-2').text
         countdown = " ".join(contest.find('div', class_='flex items-center').text.split(" ")[2:])
-
+        
         countdown_time = datetime.strptime(countdown, "%jd %Hh %Mm %Ss")
+        
         countdown_timedelta = timedelta(days = countdown_time.day, hours = countdown_time.hour, minutes = countdown_time.minute, seconds = countdown_time.second);
         contest_time = datetime.now(tz = timezone.utc) + countdown_timedelta
         contest_time = roundTime(contest_time)

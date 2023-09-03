@@ -1,5 +1,4 @@
 contestenv/
-venv/
 data/
 .github/
 node_modules/
@@ -7,3 +6,4 @@ node_modules/
 .github/
 .python-version
 __pycache__/
+token.json
